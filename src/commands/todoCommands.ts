@@ -1,20 +1,23 @@
 import { Command } from "commander";
-import { db, initDB } from "../services/todoStorage";
+import Database from "../services/todoStorage";
 import { Todo } from "../models/todo";
 
 export function registerTodoCommands(program: Command) {
 
-  const newId = db.data!.todos.length > 0 
-  ? Math.max(...db.data!.todos.map(t => Number(t.id))) + 1 
-  : 1;
+  
+  
 
   program
     .command("add <title>")
     .description("Add a new todo")
     .option("-d, --dueDate <dueDate>", "Due date for the todo (YYYY-MM-DD)")
     .action(async (title, options) => {
-      await initDB();
+      const db = await Database.getInstance();
 
+      const newId = db.data!.todos.length > 0 
+      ? Math.max(...db.data!.todos.map(t => Number(t.id))) + 1 
+      : 1;
+      
       const newTodo: Todo = {
         id: newId,
         title,
@@ -31,7 +34,7 @@ export function registerTodoCommands(program: Command) {
     .command("list")
     .description("List all todos")
     .action(async () => {
-      await initDB();
+      const db = await Database.getInstance();
 
       const todos = db.data!.todos;
       if (todos.length === 0) {
@@ -52,7 +55,7 @@ export function registerTodoCommands(program: Command) {
     .command("complete <id>")
     .description("Mark a todo as completed")
     .action(async (id) => {
-      await initDB();
+      const db = await Database.getInstance();
 
       const todoId = Number(id); 
       const todo = db.data!.todos.find((t) => t.id === todoId);
@@ -69,7 +72,7 @@ export function registerTodoCommands(program: Command) {
     .command("remove <id>")
     .description("Remove a todo by id")
     .action(async (id) => {
-      await initDB();
+      const db = await Database.getInstance();
 
       const todoId = Number(id);
       const index = db.data!.todos.findIndex((t) => t.id === todoId);
@@ -87,7 +90,7 @@ export function registerTodoCommands(program: Command) {
     .description("Edit the title of a todo")
     .option("-d, --dueDate <dueDate>", "New due date")
     .action(async (id, newTitle, options) => {
-      await initDB();
+      const db = await Database.getInstance();
       
       const todoId = Number(id);
       const todo = db.data!.todos.find((t) => t.id === todoId);

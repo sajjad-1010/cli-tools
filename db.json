@@ -6,6 +6,13 @@
       "completed": true,
       "dueDate": "2025-09-15",
       "createdAt": "2025-09-11T00:39:36.927Z"
+    },
+    {
+      "id": 2,
+      "title": "Buy milk",
+      "completed": false,
+      "dueDate": "2025-09-15",
+      "createdAt": "2025-09-11T16:03:50.251Z"
     }
   ]
 }
