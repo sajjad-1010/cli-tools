@@ -3,7 +3,7 @@
     {
       "id": 1,
       "title": "Buy milk",
-      "completed": false,
+      "completed": true,
       "dueDate": "2025-09-15",
       "createdAt": "2025-09-11T00:39:36.927Z"
     }

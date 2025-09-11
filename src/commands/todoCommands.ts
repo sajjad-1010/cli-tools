@@ -54,7 +54,8 @@ export function registerTodoCommands(program: Command) {
     .action(async (id) => {
       await initDB();
 
-      const todo = db.data!.todos.find((t) => t.id === id);
+      const todoId = Number(id); 
+      const todo = db.data!.todos.find((t) => t.id === todoId);
       if (!todo) {
         console.log("❌ Todo not found");
         return;
@@ -70,7 +71,8 @@ export function registerTodoCommands(program: Command) {
     .action(async (id) => {
       await initDB();
 
-      const index = db.data!.todos.findIndex((t) => t.id === id);
+      const todoId = Number(id);
+      const index = db.data!.todos.findIndex((t) => t.id === todoId);
       if (index === -1) {
         console.log("❌ Todo not found");
         return;
@@ -87,7 +89,8 @@ export function registerTodoCommands(program: Command) {
     .action(async (id, newTitle, options) => {
       await initDB();
       
-      const todo = db.data!.todos.find((t) => t.id === id);
+      const todoId = Number(id);
+      const todo = db.data!.todos.find((t) => t.id === todoId);
       if (!todo) {
         console.log("❌ Todo not found");
         return;
