@@ -1,9 +1,12 @@
 // src/services/todoService.ts
 import { Todo, NewTodo } from "../models/todo";
-import { db, initDB } from "./todoStorage";
+import Database from "../services/todoStorage";
+
+
 
 export async function addTodo(data: NewTodo): Promise<Todo> {
-  await initDB();
+  
+  const db = await Database.getInstance();
   const newTodo: Todo = {
     id: db.data!.todos.length + 1,
     title: data.title,
@@ -17,12 +20,14 @@ export async function addTodo(data: NewTodo): Promise<Todo> {
 }
 
 export async function listTodos(): Promise<Todo[]> {
-  await initDB();
+  
+  const db = await Database.getInstance();
   return db.data!.todos;
 }
 
 export async function completeTodo(id: number): Promise<Todo | null> {
-  await initDB();
+  
+  const db = await Database.getInstance();
   const todo = db.data!.todos.find(t => t.id === id);
   if (!todo) return null;
   todo.completed = true;
@@ -31,7 +36,8 @@ export async function completeTodo(id: number): Promise<Todo | null> {
 }
 
 export async function editTodo(id: number, updates: Partial<NewTodo>): Promise<Todo | null> {
-  await initDB();
+  
+  const db = await Database.getInstance();
   const todo = db.data!.todos.find(t => t.id === id);
   if (!todo) return null;
 
@@ -43,7 +49,8 @@ export async function editTodo(id: number, updates: Partial<NewTodo>): Promise<T
 }
 
 export async function removeTodo(id: number): Promise<boolean> {
-  await initDB();
+  
+  const db = await Database.getInstance();
   const index = db.data!.todos.findIndex(t => t.id === id);
   if (index === -1) return false;
 

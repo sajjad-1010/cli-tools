@@ -5,16 +5,22 @@ import { Todo } from "../models/todo"
 type Data = {
   todos: Todo[]
 }
+class Database {
+  private static instance: Low<Data>;
+  
+  private constructor() {} 
 
-const adapter = new JSONFile<Data>("db.json")
+  public static async getInstance() {
+    if (!Database.instance) {
+      const adapter = new JSONFile<Data>("db.json");
+      Database.instance = new Low<Data>(adapter, { todos: [] });
 
-const db = new Low<Data>(adapter, { todos: [] })
-
-export async function initDB() {
-  await db.read()
-  db.data ||= { todos: [] }
-  await db.write()
-  return db
+      await Database.instance.read();
+      Database.instance.data ||= { todos: [] };
+    }
+    return Database.instance;
+  }
 }
 
-export { db };
+export default Database;
+
