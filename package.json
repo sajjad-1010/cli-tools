@@ -40,6 +40,10 @@
     "typescript-eslint": "^8.42.0"
   },
   "dependencies": {
-    "commander": "^14.0.0"
+    "commander": "^14.0.0",
+    "lowdb": "^7.0.1"
+  },
+  "bin": {
+    "todo-cli": "./dist/index.js"
   }
 }
