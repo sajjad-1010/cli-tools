@@ -1,8 +1,7 @@
 // src/services/todoService.ts
 import { Todo, NewTodo } from "../models/todo";
 import Database from "../services/todoStorage";
-
-
+import eventBus from "../utils/eventBus";
 
 export async function addTodo(data: NewTodo): Promise<Todo> {
   

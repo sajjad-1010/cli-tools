@@ -1,4 +1,5 @@
 #!/usr/bin/env node
+import "./subscribers/todoSubscribers";
 import { Command } from "commander";
 import { registerTodoCommands } from "./commands/todoCommands";
 
