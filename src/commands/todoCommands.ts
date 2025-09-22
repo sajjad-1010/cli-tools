@@ -1,6 +1,7 @@
 import { Command } from "commander";
 import Database from "../services/todoStorage";
 import { Todo } from "../models/todo";
+import eventBus from "../utils/eventBus";
 
 export function registerTodoCommands(program: Command) {
 
@@ -27,7 +28,8 @@ export function registerTodoCommands(program: Command) {
       };
       db.data!.todos.push(newTodo);
       await db.write();
-      console.log("✅ Todo added:", newTodo);
+
+      eventBus.emit("todo:added", newTodo)
     });
 
   program
