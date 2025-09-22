@@ -42,14 +42,16 @@ export function registerTodoCommands(program: Command) {
       if (todos.length === 0) {
         console.log("📭 No todos yet!");
       } else {
-        console.log("📋 Todos:");
-        todos.forEach((todo) => {
-          console.log(
-            `- [${todo.completed ? "x" : " "}] ${todo.title} (id: ${todo.id}) ${
-              todo.dueDate ? "due: " + todo.dueDate : ""
-            }`
-          );
-        });
+        // console.log("");
+        // todos.forEach((todo) => {
+        //   console.log(
+        //     `- [${todo.completed ? "x" : " "}] ${todo.title} (id: ${todo.id}) ${
+        //       todo.dueDate ? "due: " + todo.dueDate : ""
+        //     }`
+        //   );
+        // });
+        eventBus.emit("todo:list", todos)
+
       }
     });
 
